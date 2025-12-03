@@ -18,7 +18,7 @@ Events come in 6 forms:
 - Offerings
 - Store Visits
 
-Events will impact the user's current resources, increasing or decreasing the player's stockpiles.
+Events will impact the player's current resources, increasing or decreasing the player's stockpiles.
 
 The player must manage 4 resources:
 - Faith
@@ -162,7 +162,7 @@ Would you like to exchange any of your resources?
 
 -- End of Example --
 
-Then, supposing the user selected "Exchange 3 gold for 2 food," the second screen could appear as:
+Then, supposing the player selected "Exchange 3 gold for 2 food," the second screen could appear as:
 
 The traders are happy to exchange your gold for some of their food.
 Your food stores are replenished.
@@ -252,4 +252,27 @@ Your disciples will thank you for your mercy in future events.
 - Unlocked new options for decision events
 
 -- End of Example --
+
+## Other Details
+
+## Roguelite Mechanics
+
+The game has some very basic roguelite elements:
+1. A "High Scores" screen accessible from the main menu and after the game over screen which displays the player's highest scores. 
+Player's scores come from the amount of faith the player has in their resource pools at the end of a successful run.
+2. A "Godly Powers" screen for viewing the available godly powers that can be unlocked during gameplay.
+The godly powers are arranged as a "tech tree" where some powers can only be unlocked after a previous power on the tree has been purchased during a store event.
+The screen shows the entire tech tree, but the names + details of any godly powers that the player has not unlocked during one of their runs will be hidden. The player will be unable to acquire all powers during any single run, so this screen is intended to fill in with details as the player selects different godly powers across multiple runs.
+
+### Organization
+
+The game is organized across 8 rooms:
+1. MainMenu is the landing room and allows the player to start new runs, access the high scores and godly powers screens, access the settings menu, and access an About page.
+2. GameSetup describes the goals of the game to the player, and allows them to select a god to play as. Each god starts with a different godly power.
+3. Game is where the main gameplay loop takes place. It will be used for all event types.
+4. GameOver is used at the end of each run to show the player their results. It is used for both successful runs and failed runs.
+5. HighScores is used to show the player the results of all of their runs as described above.
+6. Powers is used to show the the godly power "tech tree" as described above.
+7. Settings is used to configure the game's settings like volume level and fullscreen mode.
+8. About is used to provide a brief synopsis of the game and the circumstances around its creation.
 
