@@ -1,0 +1,47 @@
+{
+  "$GMProject":"v1",
+  "%Name":"What is Thy Offering",
+  "AudioGroups":[
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+  ],
+  "configs":{
+    "children":[],
+    "name":"Default",
+  },
+  "defaultScriptType":0,
+  "Folders":[],
+  "ForcedPrefabProjectReferences":[],
+  "IncludedFiles":[],
+  "isEcma":false,
+  "LibraryEmitters":[],
+  "MetaData":{
+    "IDEVersion":"2024.14.1.210",
+  },
+  "name":"What is Thy Offering",
+  "resources":[
+    {"id":{"name":"About","path":"rooms/About/About.yy",},},
+    {"id":{"name":"Game","path":"rooms/Game/Game.yy",},},
+    {"id":{"name":"GameOver","path":"rooms/GameOver/GameOver.yy",},},
+    {"id":{"name":"GameSetup","path":"rooms/GameSetup/GameSetup.yy",},},
+    {"id":{"name":"HighScores","path":"rooms/HighScores/HighScores.yy",},},
+    {"id":{"name":"MainMenu","path":"rooms/MainMenu/MainMenu.yy",},},
+    {"id":{"name":"Powers","path":"rooms/Powers/Powers.yy",},},
+    {"id":{"name":"Settings","path":"rooms/Settings/Settings.yy",},},
+  ],
+  "resourceType":"GMProject",
+  "resourceVersion":"2.0",
+  "RoomOrderNodes":[
+    {"roomId":{"name":"MainMenu","path":"rooms/MainMenu/MainMenu.yy",},},
+    {"roomId":{"name":"GameSetup","path":"rooms/GameSetup/GameSetup.yy",},},
+    {"roomId":{"name":"Game","path":"rooms/Game/Game.yy",},},
+    {"roomId":{"name":"Settings","path":"rooms/Settings/Settings.yy",},},
+    {"roomId":{"name":"About","path":"rooms/About/About.yy",},},
+    {"roomId":{"name":"GameOver","path":"rooms/GameOver/GameOver.yy",},},
+    {"roomId":{"name":"Powers","path":"rooms/Powers/Powers.yy",},},
+    {"roomId":{"name":"HighScores","path":"rooms/HighScores/HighScores.yy",},},
+  ],
+  "templateType":"game",
+  "TextureGroups":[
+    {"$GMTextureGroup":"","%Name":"Default","autocrop":true,"border":2,"compressFormat":"bz2","customOptions":"","directory":"","groupParent":null,"isScaled":true,"loadType":"default","mipsToGenerate":0,"name":"Default","resourceType":"GMTextureGroup","resourceVersion":"2.0","targets":-1,},
+  ],
+}
