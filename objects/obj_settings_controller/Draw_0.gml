@@ -1,6 +1,6 @@
 /// @description Draw settings UI
 
-draw_set_color(c_white);
+draw_set_color(global.color_white);
 
 // Draw title (large, centered)
 draw_set_halign(fa_center);

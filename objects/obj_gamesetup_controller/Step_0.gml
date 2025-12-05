@@ -60,7 +60,13 @@ if (mouse_check_button_released(mb_left)) {
                 button_x + button_width / 2, button_y + button_height / 2);
 
             if (mouse_on_button) {
-                // Store selected god (could be used in Game room)
+                // Reset player state for new run
+                if (!instance_exists(obj_player_state)) {
+                    instance_create_depth(0, 0, 0, obj_player_state);
+                }
+                obj_player_state.reset_for_new_run();
+
+                // Store selected god (will be picked up in Game room)
                 global.selected_god = gods[i];
                 room_goto(Game);
                 break;

@@ -392,14 +392,14 @@ function calculate_offering_favor(offering_formula) {
 /// @description Check if game over conditions are met
 /// @return {bool} True if faith or food reached 0
 function is_game_over() {
-    return faith <= 0 || food <= 0;
+    return faith <= 0 || food <= 0 || array_length(event_history) >= 30;
 }
 
 /// @function reset_for_new_run()
 /// @description Reset state for a new game run
 function reset_for_new_run() {
     faith = 100;
-    food = 100;
+    food = 10;
     relics = 50;
     favor = 0;
     owned_powers = [];

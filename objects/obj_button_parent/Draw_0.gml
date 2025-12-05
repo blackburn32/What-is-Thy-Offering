@@ -1,9 +1,9 @@
 /// @description Draw button
 
 // Set colors based on hover state
-var bg_color = is_hovered ? c_white : c_black;
-var border_color = c_white;
-var text_color = is_hovered ? c_black : c_white;
+var bg_color = is_hovered ? global.color_white : global.color_black;
+var border_color = global.color_white;
+var text_color = is_hovered ? global.color_black : global.color_white;
 
 // Draw button background
 draw_set_color(bg_color);
@@ -22,6 +22,6 @@ draw_set_valign(fa_middle);
 draw_text(x, y, button_text);
 
 // Reset draw settings
-draw_set_color(c_white);
+draw_set_color(global.color_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);

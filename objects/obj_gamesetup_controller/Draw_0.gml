@@ -1,6 +1,6 @@
 /// @description Draw god selection UI
 
-draw_set_color(c_white);
+draw_set_color(global.color_white);
 
 // Draw title (large, centered)
 draw_set_halign(fa_center);
@@ -25,7 +25,7 @@ for (var i = 0; i < array_length(gods); i++) {
     }
 
     // Reset color for each card
-    draw_set_color(c_white);
+    draw_set_color(global.color_white);
 
     // Draw card border
     draw_rectangle(card_x, card_y, card_x + card_width, card_y + card_height, true);
@@ -49,8 +49,8 @@ for (var i = 0; i < array_length(gods); i++) {
 
     // Draw underline for name
     var name_width = string_width(gods[i].name);
-    draw_line(avatar_x - name_width / 2, name_y + 12,
-              avatar_x + name_width / 2, name_y + 12);
+    draw_line(avatar_x - name_width / 2, name_y + 20,
+              avatar_x + name_width / 2, name_y + 20);
 
     // Draw power description (wrapped)
     var power_y = name_y + 30;
@@ -68,14 +68,14 @@ for (var i = 0; i < array_length(gods); i++) {
         button_x + button_width / 2, button_y + button_height / 2);
 
     // Draw button background (inverted if hovered)
-    var bg_color = mouse_on_button ? c_white : c_black;
-    var text_color = mouse_on_button ? c_black : c_white;
+    var bg_color = mouse_on_button ? global.color_white : global.color_black;
+    var text_color = mouse_on_button ? global.color_black : global.color_white;
 
     draw_set_color(bg_color);
     draw_rectangle(button_x - button_width / 2, button_y - button_height / 2,
                    button_x + button_width / 2, button_y + button_height / 2, false);
 
-    draw_set_color(c_white);
+    draw_set_color(global.color_white);
     draw_rectangle(button_x - button_width / 2, button_y - button_height / 2,
                    button_x + button_width / 2, button_y + button_height / 2, true);
 
@@ -87,7 +87,7 @@ for (var i = 0; i < array_length(gods); i++) {
 }
 
 // Reset draw settings
-draw_set_color(c_white);
+draw_set_color(global.color_white);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
