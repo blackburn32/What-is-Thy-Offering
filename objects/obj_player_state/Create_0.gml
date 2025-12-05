@@ -2,7 +2,7 @@
 
 faith = 100;          // Starts at 100, game over if reaches 0
 food = 100;           // Starts at 100, game over if reaches 0
-gold = 50;            // Starts at 50, no penalty for depletion
+relics = 50;            // Starts at 50, no penalty for depletion
 favor = 0;            // Starts at 0, used to buy powers
 
 owned_powers = [];
@@ -134,17 +134,17 @@ function add_event_to_history(event_id) {
 
 /// @function apply_resource_delta(delta)
 /// @description Apply resource changes to current resources
-/// @param {struct} delta Struct with faith, food, gold, favor changes
+/// @param {struct} delta Struct with faith, food, relics, favor changes
 function apply_resource_delta(delta) {
     faith += delta.faith;
     food += delta.food;
-    gold += delta.gold;
+    relics += delta.relics;
     favor += delta.favor;
 
     // Clamp resources to reasonable bounds
     faith = max(0, faith);
     food = max(0, food);
-    gold = max(0, gold);
+    relics = max(0, relics);
     favor = max(0, favor);
 }
 
@@ -158,7 +158,7 @@ function record_event_encountered(event_id) {
 
 /// @function apply_power_modifiers_to_delta(delta, power_modifiers)
 /// @description Apply owned power modifiers to a resource delta struct
-/// @param {struct} delta The base delta with faith, food, gold, favor
+/// @param {struct} delta The base delta with faith, food, relics, favor
 /// @param {struct} power_modifiers Power modifier definitions (or undefined)
 /// @return {struct} Modified delta with power bonuses applied
 function apply_power_modifiers_to_delta(delta, power_modifiers) {
@@ -166,14 +166,14 @@ function apply_power_modifiers_to_delta(delta, power_modifiers) {
     var modified_delta = {
         faith: delta.faith,
         food: delta.food,
-        gold: delta.gold,
+        relics: delta.relics,
         favor: delta.favor
     };
 
     // Calculate multipliers for each resource (multiplicative stacking)
     var faith_mult = 1.0;
     var food_mult = 1.0;
-    var gold_mult = 1.0;
+    var relics_mult = 1.0;
     var favor_mult = 1.0;
 
     // Apply event-specific power modifiers
@@ -193,8 +193,8 @@ function apply_power_modifiers_to_delta(delta, power_modifiers) {
                 if (variable_struct_exists(modifier, "food")) {
                     food_mult *= modifier.food;
                 }
-                if (variable_struct_exists(modifier, "gold")) {
-                    gold_mult *= modifier.gold;
+                if (variable_struct_exists(modifier, "relics")) {
+                    relics_mult *= modifier.relics;
                 }
                 if (variable_struct_exists(modifier, "favor")) {
                     favor_mult *= modifier.favor;
@@ -216,8 +216,8 @@ function apply_power_modifiers_to_delta(delta, power_modifiers) {
         if (variable_struct_exists(modifier, "food")) {
             food_mult *= modifier.food;
         }
-        if (variable_struct_exists(modifier, "gold")) {
-            gold_mult *= modifier.gold;
+        if (variable_struct_exists(modifier, "relics")) {
+            relics_mult *= modifier.relics;
         }
         if (variable_struct_exists(modifier, "favor")) {
             favor_mult *= modifier.favor;
@@ -227,7 +227,7 @@ function apply_power_modifiers_to_delta(delta, power_modifiers) {
     // Apply multipliers and round to integers
     modified_delta.faith = round(delta.faith * faith_mult);
     modified_delta.food = round(delta.food * food_mult);
-    modified_delta.gold = round(delta.gold * gold_mult);
+    modified_delta.relics = round(delta.relics * relics_mult);
     modified_delta.favor = round(delta.favor * favor_mult);
 
     return modified_delta;
@@ -268,7 +268,7 @@ function apply_exchange(exchange) {
     var give_delta = {
         faith: -exchange.give.faith,
         food: -exchange.give.food,
-        gold: -exchange.give.gold,
+        relics: -exchange.give.relics,
         favor: -exchange.give.favor
     };
     apply_resource_delta(give_delta);
@@ -300,7 +300,7 @@ function apply_exchange(exchange) {
     var receive_delta = {
         faith: round(exchange.receive.faith * receive_mult),
         food: round(exchange.receive.food * receive_mult),
-        gold: round(exchange.receive.gold * receive_mult),
+        relics: round(exchange.receive.relics * receive_mult),
         favor: round(exchange.receive.favor * receive_mult)
     };
     apply_resource_delta(receive_delta);
@@ -317,7 +317,7 @@ function calculate_offering_favor(offering_formula) {
     var base_favor_mult = 1.0;
     var faith_factor_mult = 1.0;
     var food_factor_mult = 1.0;
-    var gold_factor_mult = 1.0;
+    var relics_factor_mult = 1.0;
     var decision_bonus_mult = 1.0;
 
     // Apply event-specific offering modifiers
@@ -340,8 +340,8 @@ function calculate_offering_favor(offering_formula) {
                 if (variable_struct_exists(modifier, "food_factor")) {
                     food_factor_mult *= modifier.food_factor;
                 }
-                if (variable_struct_exists(modifier, "gold_factor")) {
-                    gold_factor_mult *= modifier.gold_factor;
+                if (variable_struct_exists(modifier, "relics_factor")) {
+                    relics_factor_mult *= modifier.relics_factor;
                 }
                 if (variable_struct_exists(modifier, "decision_bonus")) {
                     decision_bonus_mult *= modifier.decision_bonus;
@@ -366,8 +366,8 @@ function calculate_offering_favor(offering_formula) {
         if (variable_struct_exists(modifier, "food_factor")) {
             food_factor_mult *= modifier.food_factor;
         }
-        if (variable_struct_exists(modifier, "gold_factor")) {
-            gold_factor_mult *= modifier.gold_factor;
+        if (variable_struct_exists(modifier, "relics_factor")) {
+            relics_factor_mult *= modifier.relics_factor;
         }
         if (variable_struct_exists(modifier, "decision_bonus")) {
             decision_bonus_mult *= modifier.decision_bonus;
@@ -378,7 +378,7 @@ function calculate_offering_favor(offering_formula) {
     total_favor += offering_formula.base_favor * base_favor_mult;
     total_favor += faith * offering_formula.faith_factor * faith_factor_mult;
     total_favor += food * offering_formula.food_factor * food_factor_mult;
-    total_favor += gold * offering_formula.gold_factor * gold_factor_mult;
+    total_favor += relics * offering_formula.relics_factor * relics_factor_mult;
     total_favor += decisions_since_offering * offering_formula.decision_bonus * decision_bonus_mult;
 
     // Reset decision counter
@@ -400,7 +400,7 @@ function is_game_over() {
 function reset_for_new_run() {
     faith = 100;
     food = 100;
-    gold = 50;
+    relics = 50;
     favor = 0;
     owned_powers = [];
     global_delta_modifiers = {};

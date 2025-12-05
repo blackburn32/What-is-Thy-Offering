@@ -63,7 +63,7 @@ Apply to all decision options and boon/disaster outcomes:
 delta: {
     faith: 1.2,   // Affects all faith gains/losses
     food: 1.3,    // Affects all food gains/losses
-    gold: 1.1,    // Affects all gold gains/losses
+    relics: 1.1,    // Affects all relics gains/losses
     favor: 1.15   // Affects all favor gains/losses
 }
 ```
@@ -81,7 +81,7 @@ offering: {
     base_favor: 1.5,        // Affects base favor amount
     faith_factor: 1.3,      // Affects favor from faith
     food_factor: 1.2,       // Affects favor from food
-    gold_factor: 1.4,       // Affects favor from gold
+    relics_factor: 1.4,       // Affects favor from relics
     decision_bonus: 2.0     // Affects favor from decisions
 }
 ```
@@ -106,7 +106,7 @@ offering: {
         delta: {
             faith: 1.1,
             food: 1.1,
-            gold: 1.1,
+            relics: 1.1,
             favor: 1.1
         }
     }
@@ -238,7 +238,7 @@ offering: {
         delta: {
             faith: 2.0,
             food: 2.0,
-            gold: 2.0,
+            relics: 2.0,
             favor: 2.0
         }
     }
@@ -263,14 +263,14 @@ offering: {
         delta: {
             faith: 1.25,
             food: 1.25,
-            gold: 1.25,
+            relics: 1.25,
             favor: 1.25
         },
         offering: {
             base_favor: 1.5,
             faith_factor: 1.5,
             food_factor: 1.5,
-            gold_factor: 1.5,
+            relics_factor: 1.5,
             decision_bonus: 1.5
         }
     }

@@ -40,14 +40,14 @@ function event_simple_decision() {
                 cost: {
                     faith: 0,
                     food: 10,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 },
                 outcome_text: "The stranger thanks you and spreads word of your kindness.",
                 delta: {
                     faith: 15,
                     food: -10,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 }
             },
@@ -56,14 +56,14 @@ function event_simple_decision() {
                 cost: {
                     faith: 0,
                     food: 5,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 },
                 outcome_text: "The stranger takes the food and leaves quietly.",
                 delta: {
                     faith: 5,
                     food: -5,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 }
             },
@@ -72,14 +72,14 @@ function event_simple_decision() {
                 cost: {
                     faith: 0,
                     food: 0,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 },
                 outcome_text: "The stranger leaves, disappointed in your lack of compassion.",
                 delta: {
                     faith: -8,
                     food: 0,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 }
             }
@@ -106,7 +106,7 @@ function event_simple_boon() {
             delta: {
                 faith: 8,
                 food: 20,
-                gold: 5,
+                relics: 5,
                 favor: 0
             }
         }
@@ -133,7 +133,7 @@ function event_simple_disaster() {
             delta: {
                 faith: -5,
                 food: -15,
-                gold: -3,
+                relics: -3,
                 favor: 0
             }
         }
@@ -156,32 +156,32 @@ function event_simple_exchange() {
 
         exchanges: [
             {
-                text: "Trade 15 Food for 8 Gold",
+                text: "Trade 15 Food for 8 relics",
                 give: {
                     faith: 0,
                     food: 15,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 },
                 receive: {
                     faith: 0,
                     food: 0,
-                    gold: 8,
+                    relics: 8,
                     favor: 0
                 }
             },
             {
-                text: "Trade 10 Gold for 20 Food",
+                text: "Trade 10 relics for 20 Food",
                 give: {
                     faith: 0,
                     food: 0,
-                    gold: 10,
+                    relics: 10,
                     favor: 0
                 },
                 receive: {
                     faith: 0,
                     food: 20,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 }
             },
@@ -190,13 +190,13 @@ function event_simple_exchange() {
                 give: {
                     faith: 0,
                     food: 0,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 },
                 receive: {
                     faith: 0,
                     food: 0,
-                    gold: 0,
+                    relics: 0,
                     favor: 0
                 }
             }
@@ -222,7 +222,7 @@ function event_simple_offering() {
             base_favor: 1,
             faith_factor: 0.01,      // 1% of current faith
             food_factor: 0.005,      // 0.5% of current food
-            gold_factor: 0.01,       // 1% of current gold
+            relics_factor: 0.01,       // 1% of current relics
             decision_bonus: 0.5      // 0.5 favor per decision since last offering
         }
     };

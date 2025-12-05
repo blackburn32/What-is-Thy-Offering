@@ -7,16 +7,16 @@ This document defines the data structure for all event types in the game.
 
 1. **Single unified structure** - All event types use same base struct, with type-specific fields only present when relevant
 2. **Extensive use of `undefined`** - Optional fields use undefined rather than null/empty
-3. **Flat resource objects** - Resources always stored as `{faith, food, gold, favor}` for consistency
+3. **Flat resource objects** - Resources always stored as `{faith, food, relics, favor}` for consistency
 4. **Separation of costs and deltas** - Decision options show cost separately from outcome changes
 5. **Flexible power requirements** - Supports "all required" (AND), "any required" (OR), and forbidden (NOT)
 6. **Flag system** - Simple string-based flags track decision history
 7. **Event graph** - unlock_events/lock_events allow building conditional event chains
 8. **Multiplicative power modifiers** - All event types support granular power_modifiers with multiplicative stacking
    - Exchange: Powers apply to the entire received amount
-   - Offering: Powers target specific components (base_favor, faith_factor, food_factor, gold_factor, decision_bonus)
-   - Decision options: Powers target specific resource deltas (faith, food, gold, favor)
-   - Boon/Disaster outcomes: Powers target specific resource deltas (faith, food, gold, favor)
+   - Offering: Powers target specific components (base_favor, faith_factor, food_factor, relics_factor, decision_bonus)
+   - Decision options: Powers target specific resource deltas (faith, food, relics, favor)
+   - Boon/Disaster outcomes: Powers target specific resource deltas (faith, food, relics, favor)
 
 ## Event Struct Definition
 
@@ -46,8 +46,8 @@ All events use a unified struct with type-specific fields:
         max_faith: undefined,
         min_food: undefined,
         max_food: undefined,
-        min_gold: undefined,
-        max_gold: undefined,
+        min_relics: undefined,
+        max_relics: undefined,
         min_favor: undefined,
         max_favor: undefined,
 
@@ -70,7 +70,7 @@ All events use a unified struct with type-specific fields:
             cost: {
                 faith: 0,
                 food: 5,
-                gold: 10,
+                relics: 10,
                 favor: 0
             },
 
@@ -80,7 +80,7 @@ All events use a unified struct with type-specific fields:
             delta: {
                 faith: 10,
                 food: -5,
-                gold: -10,
+                relics: -10,
                 favor: 2
             },
 
@@ -96,7 +96,7 @@ All events use a unified struct with type-specific fields:
                 "generous_god": {
                     faith: 1.2,
                     food: 1.2,
-                    gold: 1.2,
+                    relics: 1.2,
                     favor: 1.2     // All resources 20% larger
                 }
             },
@@ -115,7 +115,7 @@ All events use a unified struct with type-specific fields:
         delta: {
             faith: 10,
             food: 5,
-            gold: 3,
+            relics: 3,
             favor: 1
         },
 
@@ -125,7 +125,7 @@ All events use a unified struct with type-specific fields:
             "generous_god": {
                 faith: 1.5,    // 50% more faith gained/lost
                 food: 1.5,     // 50% more food gained/lost
-                gold: 1.5,     // 50% more gold gained/lost
+                relics: 1.5,     // 50% more relics gained/lost
                 favor: 1.5     // 50% more favor gained/lost
             },
             "harvest_lord": {
@@ -134,7 +134,7 @@ All events use a unified struct with type-specific fields:
             "ancient_sage": {
                 faith: 0.5,    // Reduces faith impact by 50% (good for disasters)
                 food: 0.5,     // Reduces food impact by 50%
-                gold: 0.5      // Reduces gold impact by 50%
+                relics: 0.5      // Reduces relics impact by 50%
             }
         },
 
@@ -147,25 +147,25 @@ All events use a unified struct with type-specific fields:
     // === EXCHANGE EVENTS: Resource trading ===
     exchanges: [
         {
-            text: "Trade 10 Food for gold",
+            text: "Trade 10 Food for relics",
             give: {
                 faith: 0,
                 food: 10,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             receive: {
                 faith: 0,
                 food: 0,
-                gold: 4,
+                relics: 4,
                 favor: 0
             },
             // Power multipliers applied to receive amount (multiplicative stacking)
             // If player owns multiple, they multiply together: 1.5 * 1.25 = 1.875x
             power_modifiers: {
-                "trickster": 1.5,      // 50% improvement: 4 gold → 6 gold
-                "merchant_god": 1.25,  // 25% improvement: 4 gold → 5 gold
-                "cursed": 0.75         // 25% penalty: 4 gold → 3 gold
+                "trickster": 1.5,      // 50% improvement: 4 relics → 6 relics
+                "merchant_god": 1.25,  // 25% improvement: 4 relics → 5 relics
+                "cursed": 0.75         // 25% penalty: 4 relics → 3 relics
             }
         }
     ],
@@ -175,7 +175,7 @@ All events use a unified struct with type-specific fields:
         base_favor: 1,                // Flat favor amount always received
         faith_factor: 0.01,           // % of current faith converted to favor
         food_factor: 0.005,           // % of current food converted to favor
-        gold_factor: 0.01,            // % of current gold converted to favor
+        relics_factor: 0.01,            // % of current relics converted to favor
         decision_bonus: 0.5,          // Favor per decision since last offering
 
         // Power multipliers (multiplicative stacking)
@@ -185,7 +185,7 @@ All events use a unified struct with type-specific fields:
                 base_favor: 2.0,      // Doubles base favor
                 faith_factor: 1.5,    // 50% more favor from faith
                 food_factor: 1.5,     // 50% more favor from food
-                gold_factor: 1.5,     // 50% more favor from gold
+                relics_factor: 1.5,     // 50% more favor from relics
                 decision_bonus: 1.5   // 50% more favor per decision
             },
             "devoted_flock": {
@@ -223,14 +223,14 @@ var event_traveler = {
             cost: {
                 faith: 0,
                 food: 5,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             outcome_text: "The travelers spread word of your kindness.",
             delta: {
                 faith: 10,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             set_flags: ["helped_travelers"]
@@ -241,14 +241,14 @@ var event_traveler = {
             cost: {
                 faith: 5,
                 food: 5,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             outcome_text: "Your blessing fills them with hope.",
             delta: {
                 faith: 20,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 1
             },
             set_flags: ["blessed_travelers"]
@@ -258,14 +258,14 @@ var event_traveler = {
             cost: {
                 faith: 0,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             outcome_text: "The travelers leave, disappointed.",
             delta: {
                 faith: -5,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             set_flags: ["rejected_travelers"]
@@ -290,7 +290,7 @@ var event_great_harvest = {
         delta: {
             faith: 5,
             food: 30,
-            gold: 0,
+            relics: 0,
             favor: 0
         },
         power_modifiers: {
@@ -324,7 +324,7 @@ var event_drought = {
         delta: {
             faith: -10,
             food: -20,
-            gold: 0,
+            relics: 0,
             favor: 0
         },
         power_modifiers: {
@@ -353,36 +353,36 @@ var event_merchant = {
     },
     exchanges: [
         {
-            text: "Trade 10 Food for gold",
+            text: "Trade 10 Food for relics",
             give: {
                 faith: 0,
                 food: 10,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             receive: {
                 faith: 0,
                 food: 0,
-                gold: 4,
+                relics: 4,
                 favor: 0
             },
             power_modifiers: {
-                "trickster": 1.5,      // 4 gold → 6 gold
-                "merchant_god": 1.25   // 4 gold → 5 gold (or 7.5 if both owned)
+                "trickster": 1.5,      // 4 relics → 6 relics
+                "merchant_god": 1.25   // 4 relics → 5 relics (or 7.5 if both owned)
             }
         },
         {
-            text: "Trade 10 Gold for food",
+            text: "Trade 10 Relics for food",
             give: {
                 faith: 0,
                 food: 0,
-                gold: 10,
+                relics: 10,
                 favor: 0
             },
             receive: {
                 faith: 0,
                 food: 25,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             power_modifiers: {
@@ -395,13 +395,13 @@ var event_merchant = {
             give: {
                 faith: 0,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             receive: {
                 faith: 0,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 0
             }
         }
@@ -423,7 +423,7 @@ var event_offering = {
         base_favor: 1,
         faith_factor: 0.01,      // 1% of faith
         food_factor: 0.005,      // 0.5% of food
-        gold_factor: 0.01,       // 1% of gold
+        relics_factor: 0.01,       // 1% of relics
         decision_bonus: 0.5,     // 0.5 favor per decision since last offering
 
         power_modifiers: {
@@ -431,7 +431,7 @@ var event_offering = {
                 base_favor: 2.0,      // Doubles base favor (1 → 2)
                 faith_factor: 1.5,    // 50% more from faith
                 food_factor: 1.5,     // 50% more from food
-                gold_factor: 1.5,     // 50% more from gold
+                relics_factor: 1.5,     // 50% more from relics
                 decision_bonus: 1.5   // 50% more per decision
             },
             "devoted_flock": {
@@ -455,7 +455,7 @@ var event_war = {
     conditions: {
         required_flags: ["established_village"],
         forbidden_flags: ["war_resolved"],
-        min_gold: 5,  // Need resources to have meaningful choices
+        min_relics: 5,  // Need resources to have meaningful choices
         weight: 0.5
     },
     options: [
@@ -464,14 +464,14 @@ var event_war = {
             cost: {
                 faith: 0,
                 food: 10,
-                gold: 20,
+                relics: 20,
                 favor: 0
             },
             outcome_text: "Peace is maintained, though your followers question your strength.",
             delta: {
                 faith: -5,
                 food: 0,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             set_flags: ["war_resolved", "paid_tribute"]
@@ -482,14 +482,14 @@ var event_war = {
             cost: {
                 faith: 10,
                 food: 5,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             outcome_text: "Your divine might leads your followers to a glorious victory!",
             delta: {
                 faith: 30,
                 food: 0,
-                gold: 15,
+                relics: 15,
                 favor: 3
             },
             set_flags: ["war_resolved", "war_won"],
@@ -500,14 +500,14 @@ var event_war = {
             cost: {
                 faith: 0,
                 food: 0,
-                gold: 10,
+                relics: 10,
                 favor: 0
             },
             outcome_text: "Your followers successfully defend their homes, but suffer losses.",
             delta: {
                 faith: 5,
                 food: -15,
-                gold: 0,
+                relics: 0,
                 favor: 0
             },
             set_flags: ["war_resolved", "war_defended"]
@@ -529,21 +529,21 @@ var event_war = {
   - Can use `undefined` for exchanges that aren't affected by any powers
   - Final received amount should be rounded to nearest integer after applying multipliers
 - **Offering power_modifiers**: Each power can modify specific offering components independently
-  - Powers specify which components they affect (base_favor, faith_factor, food_factor, gold_factor, decision_bonus)
+  - Powers specify which components they affect (base_favor, faith_factor, food_factor, relics_factor, decision_bonus)
   - Omitted components are not affected by that power (e.g., "devoted_flock" only affects faith_factor)
   - Multiple powers affecting the same component stack multiplicatively
   - Example: If player owns "generous_faithful" (faith_factor: 1.5x) and "devoted_flock" (faith_factor: 1.8x), final faith_factor multiplier is 1.5 * 1.8 = 2.7x
   - Calculation: For each component, multiply base value by all relevant power modifiers, then sum all components for total favor
   - All intermediate calculations should use floats, final result rounded to nearest integer
-  - **Worked example**: Player has 200 faith, 100 food, 50 gold, 10 decisions since last offering, and owns "generous_faithful" and "devoted_flock"
+  - **Worked example**: Player has 200 faith, 100 food, 50 relics, 10 decisions since last offering, and owns "generous_faithful" and "devoted_flock"
     - Base favor: 1 * 2.0 (generous_faithful) = 2
     - Faith contribution: 200 * 0.01 * 1.5 (generous_faithful) * 1.8 (devoted_flock) = 200 * 0.01 * 2.7 = 5.4
     - Food contribution: 100 * 0.005 * 1.5 (generous_faithful) = 0.75
-    - Gold contribution: 50 * 0.01 * 1.5 (generous_faithful) = 0.75
+    - Relics contribution: 50 * 0.01 * 1.5 (generous_faithful) = 0.75
     - Decision contribution: 10 * 0.5 * 1.5 (generous_faithful) = 7.5
     - Total favor: 2 + 5.4 + 0.75 + 0.75 + 7.5 = 16.4 → rounds to 16
 - **Decision option & Boon/Disaster outcome power_modifiers**: Each power can modify specific resource deltas independently
-  - Powers specify which resource deltas they affect (faith, food, gold, favor)
+  - Powers specify which resource deltas they affect (faith, food, relics, favor)
   - Omitted resources are not affected by that power
   - Multiple powers affecting the same resource stack multiplicatively
   - **Important**: Modifiers affect both positive and negative deltas equally (amplify gains AND losses)

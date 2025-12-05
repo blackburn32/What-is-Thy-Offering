@@ -17,7 +17,7 @@ function power_generous_faithful() {
             delta: {
                 faith: 1.1,
                 food: 1.1,
-                gold: 1.1,
+                relics: 1.1,
                 favor: 1.1
             }
         }
@@ -154,7 +154,7 @@ function power_volatile_deity() {
             delta: {
                 faith: 2.0,
                 food: 2.0,
-                gold: 2.0,
+                relics: 2.0,
                 favor: 2.0
             }
         }
@@ -178,14 +178,14 @@ function power_transcendent_one() {
             delta: {
                 faith: 1.25,
                 food: 1.25,
-                gold: 1.25,
+                relics: 1.25,
                 favor: 1.25
             },
             offering: {
                 base_favor: 1.5,
                 faith_factor: 1.5,
                 food_factor: 1.5,
-                gold_factor: 1.5,
+                relics_factor: 1.5,
                 decision_bonus: 1.5
             }
         }

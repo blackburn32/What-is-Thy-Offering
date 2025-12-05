@@ -23,7 +23,7 @@ Events will impact the player's current resources, increasing or decreasing the 
 The player must manage 4 resources:
 - Faith
 - Food
-- Gold
+- Relics
 - Divine Favor
 
 If the player ever runs out of Faith or Food, the game ends in a failure.
@@ -143,7 +143,7 @@ In general, resources are ranked as follows:
 1. "Divine Favor" is the most valuable resource. It can be used to unlock new godly powers, and is used in the cost of some of the strongest descision options.
 2. "Faith" is the second most valuable resource. Faith is used as the player's end game score and is the hardest resource to increase.
 3. "Food" is next, as running out of food ends the player's game. Food changes frequently and acutely, it is the most changeable resource in the game.
-4. "Gold" is the least valuable resource, it is used frequently in the cost of different descision options. There is no consequence for running out of gold.
+4. "Relics" are the least valuable resource, they are used frequently in the cost of different descision options. There is no consequence for running out of relics.
 
 Resource exchanges will appear as two separate screens.
 The first screen shows the description of the exchange, and gives the player options about what exchange they'd like to perform.
@@ -153,23 +153,23 @@ For example, the first screen may appear as:
 
 A caravan approaches your disciples, packed with wares and the whispers of trade.
 Would you like to exchange any of your resources?
-- Exchange 3 gold for 2 food
-- Exchange 3 gold for 1 faith
-- Exchange 3 food for 2 gold
+- Exchange 3 relics for 2 food
+- Exchange 3 relics for 1 faith
+- Exchange 3 food for 2 relics
 - Exchange 3 faith for 2 food
-- Exchange 3 faith for 2 gold
+- Exchange 3 faith for 2 relics
 - Don't exchange any resources
 
 -- End of Example --
 
-Then, supposing the player selected "Exchange 3 gold for 2 food," the second screen could appear as:
+Then, supposing the player selected "Exchange 3 relics for 2 food," the second screen could appear as:
 
-The traders are happy to exchange your gold for some of their food.
+The traders are happy to exchange your relics for some of their food.
 Your food stores are replenished.
 
 \+ 2 Food
 
-\- 3 Gold
+\- 3 Relics
 
 -- End of Example --
 
